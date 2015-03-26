@@ -1,8 +1,0 @@
-2015-03-26T22:44:33.734Z	Master(2355/C1N0)	8ms	192.168.0.201	-	-	-	296	0	GET	200	http://192.168.0.127/	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:33.0) Gecko/20100101 Firefox/33.0	undefined
-2015-03-26T22:44:33.760Z	Master(2355/C1N0)	36ms	192.168.0.201	-	-	-	296	228	GET	404	http://192.168.0.127/	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:33.0) Gecko/20100101 Firefox/33.0	undefined
-2015-03-26T22:44:34.050Z	Master(2355/C1N0)	4ms	192.168.0.201	-	-	-	603	228	GET	200	http://192.168.0.127/favicon.ico	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:33.0) Gecko/20100101 Firefox/33.0	undefined
-2015-03-26T22:44:34.060Z	Master(2355/C1N0)	14ms	192.168.0.201	-	-	-	603	456	GET	404	http://192.168.0.127/favicon.ico	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:33.0) Gecko/20100101 Firefox/33.0	undefined
-2015-03-26T22:44:34.248Z	Master(2355/C1N0)	1ms	192.168.0.201	-	-	-	307	0	GET	200	http://192.168.0.127/favicon.ico	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:33.0) Gecko/20100101 Firefox/33.0	undefined
-2015-03-26T22:44:34.254Z	Master(2355/C1N0)	7ms	192.168.0.201	-	-	-	307	228	GET	404	http://192.168.0.127/favicon.ico	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:33.0) Gecko/20100101 Firefox/33.0	undefined
-2015-03-26T22:44:34.297Z	Master(2355/C1N0)	1ms	192.168.0.201	-	-	-	880	456	GET	200	http://192.168.0.127/favicon.ico	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:33.0) Gecko/20100101 Firefox/33.0	undefined
-2015-03-26T22:44:34.303Z	Master(2355/C1N0)	7ms	192.168.0.201	-	-	-	880	684	GET	404	http://192.168.0.127/favicon.ico	Mozilla/5.0 (Windows NT 6.1; WOW64; rv:33.0) Gecko/20100101 Firefox/33.0	undefined
