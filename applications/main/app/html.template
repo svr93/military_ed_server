@@ -42,7 +42,7 @@
   <script type="text/javascript" src="/js/init.js"></script>
 </head>
 <body>
-  <div id="header">
+  <!-- div id="header">
     <div id="header-panel">
       <div id="logo-panel"><a href="/"><img src="/images/logo.png" width="238" height="87" border="0" /></a></div>
       <div id="hmenu-panel">
@@ -59,7 +59,7 @@
   </div>
   <div id="footer">
     <div id="footer-panel">Copyright &copy; 2013-2015 MetaSystems</div>
-  </div>
+  </div -->
   @[forms]@
 </body>
 </html>
