@@ -1,1 +1,2 @@
 node_modules/impress/lib/impress.client.js - TPL_NOT_FOUND error
+http://nodejs.org/dist/v0.10.36/docs/api/addons.html - tutorial (C++ addons)
