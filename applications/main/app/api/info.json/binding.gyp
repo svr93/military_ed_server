@@ -2,7 +2,7 @@
   "targets": [
     {
       "target_name": "addon",
-      "sources": [ "coords_transformation.cc" ]
+      "sources": [ "math_space.cc", "coords_transformation.cc" ]
     }
   ]
 }
