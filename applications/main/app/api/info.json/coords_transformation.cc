@@ -18,7 +18,7 @@ Handle<Value> Add(const Arguments& args) {
   }
 
   Local<Number> num = Number::New(args[0]->NumberValue() +
-      args[1]->NumberValue());
+      args[1]->NumberValue() + abs_my(2));
   return scope.Close(num);
 }
 
