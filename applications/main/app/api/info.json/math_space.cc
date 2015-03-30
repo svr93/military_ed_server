@@ -119,7 +119,7 @@ double get_t (int dd,int mm,int yy,double th,double tm,double ts)
 
 }
 
-double get_jd_fromdatetime (QDateTime dt)
+/* SVR93 double get_jd_fromdatetime (QDateTime dt)
 {
     double jd=dt.date().toJulianDay();
     int hh=dt.time().hour();
@@ -129,9 +129,9 @@ double get_jd_fromdatetime (QDateTime dt)
     jd = jd + ((double)hh+(double)mm/60.0+(double)ss/3600.00+(double)msec/3.6e6)/24.0-J_1957;
     return jd;
 
-}
+} SVR93 */
 //------------------------------------------
-double get_t_fromdatetime (QDateTime dt)
+/* SVR93 double get_t_fromdatetime (QDateTime dt)
 {
 	double t;
 	
@@ -145,7 +145,7 @@ double get_t_fromdatetime (QDateTime dt)
 	t=get_t (dd, mm, yy, th, tm, ts);
 	return t;
 
-}
+} SVR93 */
 
 //------------------------------------------
 void get_hhmmss_from_t (int t,int& hh,int& mm,int& ss)
@@ -346,7 +346,7 @@ void get_rocet_xyz_from_t(int tip_tr ,double t,double s_start,double d_start,dou
 /// ВХОД:  t - [сутки] в JD1957                                                                     ///
 /// ВЫХОД: GMST() -  [rad] звездное время на гринвиче в радианах                                    ///
 ///                                                                                                 ///
-double GMST(double t)
+/* SVR93 double GMST(double t)
 {
 //1.Вычисление модифицированной  юлианской даты на начало суток
     double JD = t + J_1957 ;
@@ -370,13 +370,13 @@ double Var3 = 365.0 * Year - 679004.0 ;
 double MD = Var3 + Var2 + floor(306001 * ( Mon + 1 ) / 10000) + Day ;//MD на 0h
 //MD = Var3 + Var2 + 306001 * (Mon + 1) \ 10000 + Day
 // \ - деление нацело
-//** MD = JD - 2400000.5
-//** 0 часов 17.11.1858 г.
+// SVR93 MD = JD - 2400000.5
+// SVR93 0 часов 17.11.1858 г.
 
 //2. Вычисление звездного времени
 
 double T0 = (MD - 51544.5) / 36525;//мод.юл.дата на начало суток в юлианских столетиях
-//MD //** 0 часов 17.11.1858 г.**//
+// SVR93 MD 0 часов 17.11.1858 г.
 double a1 = 24110.54841 ;       //[s]
 double a2 = 8640184.812866 ;    //[s]
 double a3 = 0.093104 ;          //[s]
@@ -393,7 +393,7 @@ if (SG < 0) SG += 24 ;//[h] _ проверить ????
 SG = SG / 24 ;// [сутки] - vremya v sutkah
 return SG * 2 * pi ;// [rad]
 
-}
+} */
 
 
 //------------------------------------------------------------
