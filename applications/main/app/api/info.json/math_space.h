@@ -24,4 +24,15 @@ double& h, double& Xgsk,double& Ygsk,double& Zgsk);
 void GSKtoNSK(double & Xgsk, double & Ygsk, double & Zgsk,
 double & Xnsk, double & Ynsk, double & Znsk, double& t);
 
+/* ----- necessary methods ----- */
+
+void get_xyzR_from_sd_grad(double s, double d, double h,
+double& x, double& y, double& z);
+
+void get_RAzEps_from_xyz(double& r, double& az, double& eps,
+double xc, double yc, double zc,
+double x0, double y0, double z0,
+double sc, double dc,
+double s0, double d0);
+
 #endif
