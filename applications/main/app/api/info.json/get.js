@@ -9,8 +9,8 @@ module.exports = function(client, callback) {
   var objY = 0;
   var objZ = 0;
   
-  var stLatitude = 90;
-  var stLongitude = 0;
+  var stLatitude = 0;
+  var stLongitude = 90;
   
   console.log(addon.calculateRelativeCoords(objX, objY, objZ,
                                             stLatitude, stLongitude));
