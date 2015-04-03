@@ -5,7 +5,15 @@ module.exports = function(client, callback) {
 
   console.log(client.query);
   
-  console.log(addon.add(7, 11));
+  var objX = 6371;
+  var objY = 0;
+  var objZ = 0;
+  
+  var stLatitude = 90;
+  var stLongitude = 0;
+  
+  console.log(addon.calculateRelativeCoords(objX, objY, objZ,
+                                            stLatitude, stLongitude));
   
   client.context.data = {
     result: 'OK'
