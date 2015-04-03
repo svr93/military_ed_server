@@ -1,6 +1,6 @@
 #define BUILDING_NODE_EXTENSION
 #include <node.h>
-#include "math_space.h"
+#include "math_space.hpp"
 
 using namespace v8;
 
