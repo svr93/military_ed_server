@@ -3,6 +3,10 @@
 
 #include <cmath>
 
+#ifndef M_PI
+#define M_PI = 3.14
+#endif
+
 /* ----- verified constants ----- */
 
 const double pi = M_PI;
@@ -22,7 +26,8 @@ const double V_ugl = pi2 / fSecondsInDay;
 const double J_1957 = 2436204.5;
 
 const double MU_km_s = 398600.44;
-const double Mu = MU_km_s * 1e9 * pow(fSecondsInDay, 2) / pow(Rz, 3);
+const double Mu = MU_km_s * 1e9 * pow((double)fSecondsInDay, 2) /
+                                  pow((double)Rz, 3);
 
 /* ----- necessary methods ----- */
 
