@@ -210,7 +210,7 @@ void get_RAzEps_from_xyz(double& r,double& az,double& eps,double xc,double yc,do
 	zm=res20*(xc-x0)+res21*(yc-y0)+res22*(zc-z0);
 
 //   double rr=sqrt(xm*xm+ym*ym+zm*zm);
-   double aa = sqrt( xm*xm+  ym*ym);
+   double aa = sqrt( xm*xm+  ym*ym + zm * zm); // SVR93
    if (abs_my(aa) < 1e-6)
                 eps = 0.0;
         else
