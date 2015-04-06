@@ -393,8 +393,8 @@ if (SG < 0) SG += 24 ;//[h] _ проверить ????
 SG = SG / 24 ;// [сутки] - vremya v sutkah
 return SG * 2 * pi ;// [rad]
 
-} */
-double GMST(double t) { return 0; } // SVR93
+} SVR93 */
+double GMST(double t) { return t; } // SVR93
 
 //------------------------------------------------------------
 /// пересчет долготы L , широты B  и высоты h в HСК (xg, yg, zg)
