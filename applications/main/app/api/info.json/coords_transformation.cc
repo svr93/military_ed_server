@@ -78,11 +78,11 @@ Handle<Value> calculateSatellitePos(const Arguments& args) {
   Local<Object> params = args[0]->ToObject();
 
   double aosk = params->
-    Get(String::NewSymbol("apogee"))->
+    Get(String::NewSymbol("semiMajorAxis"))->
     NumberValue();
 
   double e = params->
-    Get(String::NewSymbol("perigee"))->
+    Get(String::NewSymbol("eccentricity"))->
     NumberValue();
 
   double nakl = params->
