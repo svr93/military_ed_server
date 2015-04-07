@@ -20,12 +20,13 @@ const int Rz = (int)(R_Earth * 1e3);
 
 const int fSecondsInDay = 60 * 60 * 24;
 
+const double MU_km_s = 3.986e5; // standard gravitational parameter, [km3 / c2]
+
 /* ----- not verified constants ----- */
 
 const double V_ugl = pi2 / fSecondsInDay;
 const double J_1957 = 2436204.5;
 
-const double MU_km_s = 398600.44;
 const double Mu = MU_km_s * 1e9 * pow((double)fSecondsInDay, 2) /
                                   pow((double)Rz, 3);
 
