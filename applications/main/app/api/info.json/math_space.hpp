@@ -16,7 +16,7 @@ const double fDegreeInRadian = 180.0 / M_PI;
 const double fDegreeInGrad = M_PI / 180;
 
 const double R_Earth = 6371.0;
-const int Rz = R_Earth * 1e3;
+const int Rz = (int)(R_Earth * 1e3);
 
 const int fSecondsInDay = 60 * 60 * 24;
 
