@@ -14,6 +14,18 @@ module.exports = function(client, callback) {
   
   console.log(addon.calculateRelativeCoords(objX, objY, objZ,
                                             stLatitude, stLongitude));
+
+  console.log(addon.calculateSatellitePos({
+
+    apogee: 918.1,
+    perigee: 410.2,
+    inclination: 97.86907,
+    ascendingNodeLongitude: 205.44564,
+    perigeeArg: 29.15896,
+    period: 1,
+    currentTime: 89.5
+
+  })); // only for test; need exclude from get.js
   
   client.context.data = {
     result: 'OK'
