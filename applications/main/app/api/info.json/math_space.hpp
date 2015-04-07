@@ -39,6 +39,9 @@ void get_RAzEps_from_xyz(double& r, double& az, double& eps,
                          double x0, double y0, double z0,
                          double sc, double dc,  // sc, dc are not used
                          double s0, double d0);
+
+void PodsputnTochka(double& aosk, double& e, double& nakl, double& dby,
+                    double& w, double& tper, double& t, double& D, double& S);
                          
 /* ----- not necessary methods ----- */
 
