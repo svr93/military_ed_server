@@ -22,7 +22,6 @@ module.exports = function(client, callback) {
     inclination: 97.86907,
     ascendingNodeLongitude: 205.44564,
     perigeeArg: 29.15896,
-    period: 1,
     currentTime: 89.5
 
   })); // only for test; need exclude from get.js
