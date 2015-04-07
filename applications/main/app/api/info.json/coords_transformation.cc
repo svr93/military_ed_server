@@ -1,11 +1,16 @@
 #define BUILDING_NODE_EXTENSION
 #include <node.h>
+
+#include <iostream>
 #include "math_space.hpp"
 
 using namespace v8;
 
-void calculate(double& r, double& az, double& eps,
-double xc, double yc, double zc, double s0, double d0) {
+using std::cout;
+
+void calculateRC(double& r, double& az, double& eps,
+                 double xc, double yc, double zc,
+                 double s0, double d0) {
   
   double x0 = 0;
   double y0 = 0;
@@ -14,44 +19,113 @@ double xc, double yc, double zc, double s0, double d0) {
   get_xyzR_from_sd_grad(s0, d0, 0, x0, y0, z0);
   
   get_RAzEps_from_xyz(r, az, eps, xc, yc, zc, x0, y0, z0, 0, 0, s0, d0);
-}  
+}
 
 Handle<Value> calculateRelativeCoords(const Arguments& args) {
   HandleScope scope;
 
   if (args.Length() < 5) {
-    ThrowException(Exception::TypeError(String::New("Wrong number of arguments")));
+    ThrowException(Exception::TypeError(String::New("Wrong number of args")));
     return scope.Close(Undefined());
   }
 
-  if (!args[0]->IsNumber() || !args[1]->IsNumber()) {
-    ThrowException(Exception::TypeError(String::New("Wrong arguments")));
+  if (!args[0]->IsNumber() ||
+      !args[1]->IsNumber() ||
+      !args[2]->IsNumber() ||
+      !args[3]->IsNumber() ||
+      !args[4]->IsNumber()) {
+
+    ThrowException(Exception::TypeError(String::New("Wrong args")));
     return scope.Close(Undefined());
   }
   
   double r = 0;
   double az = 0;
   double eps = 0;
-  
-  calculate(r, az, eps,
-  args[0]->NumberValue(),
-  args[1]->NumberValue(),
-  args[2]->NumberValue(),
-  args[3]->NumberValue(),
-  args[4]->NumberValue()); 
 
-  Local<Object> obj = Object::New();
+  double xc = args[0]->NumberValue(); // objX
+  double yc = args[1]->NumberValue(); // objY
+  double zc = args[2]->NumberValue(); // objZ
+
+  double s0 = args[3]->NumberValue(); // stLatitude
+  double d0 = args[4]->NumberValue(); // stLongitude
   
-  obj->Set(String::NewSymbol("r"), Number::New(r));
-  obj->Set(String::NewSymbol("az"), Number::New(az));
-  obj->Set(String::NewSymbol("eps"), Number::New(eps));
+  calculateRC(r, az, eps, xc, yc, zc, s0, d0);
+
+  Local<Object> res = Object::New();
   
-  return scope.Close(obj);
+  res->Set(String::NewSymbol("radial_distance"), Number::New(r));
+  res->Set(String::NewSymbol("azimuth_angle"), Number::New(az));
+  res->Set(String::NewSymbol("polar_angle"), Number::New(eps));
+  
+  return scope.Close(res);
+}
+
+Handle<Value> calculateSatellitePos(const Arguments& args) {
+  HandleScope scope;
+
+  if (args.Length() < 1) {
+    ThrowException(Exception::TypeError(String::New("Wrong number of args")));
+    return scope.Close(Undefined());
+  }
+
+  if (!args[0]->IsObject()) {
+    ThrowException(Exception::TypeError(String::New("Wrong args")));
+    return scope.Close(Undefined());
+  }
+
+  Local<Object> params = args[0]->ToObject();
+
+  double aosk = params->
+    Get(String::NewSymbol("apogee"))->
+    NumberValue();
+
+  double e = params->
+    Get(String::NewSymbol("perigee"))->
+    NumberValue();
+
+  double nakl = params->
+    Get(String::NewSymbol("inclination"))->
+    NumberValue();
+
+  double dby = params->
+    Get(String::NewSymbol("ascendingNodeLongitude"))->
+    NumberValue();
+
+  double w = params->
+    Get(String::NewSymbol("perigeeArg"))->
+    NumberValue();
+
+  double tper = params->
+    Get(String::NewSymbol("period"))->
+    NumberValue();
+
+  double t = params->
+    Get(String::NewSymbol("currentTime"))->
+    NumberValue();
+
+  double D = 0;
+  double S = 0;
+
+  PodsputnTochka(aosk, e, nakl, dby, w, tper, t, D, S);
+
+  Local<Object> res = Object::New();
+  
+  res->Set(String::NewSymbol("latitude"), Number::New(S));
+  res->Set(String::NewSymbol("longitude"), Number::New(D));
+
+  return scope.Close(res);  
 }
 
 void Init(Handle<Object> exports) {
+
   exports->Set(String::NewSymbol("calculateRelativeCoords"),
-      FunctionTemplate::New(calculateRelativeCoords)->GetFunction());
+               FunctionTemplate::New(calculateRelativeCoords)->
+                 GetFunction());
+
+  exports->Set(String::NewSymbol("calculateSatellitePos"),
+               FunctionTemplate::New(calculateSatellitePos)->
+                 GetFunction());
 }
 
 NODE_MODULE(addon, Init)
