@@ -96,9 +96,7 @@ Handle<Value> calculateSatellitePos(const Arguments& args) {
     Get(String::NewSymbol("perigeeArg"))->
     NumberValue();
 
-  double tper = params->
-    Get(String::NewSymbol("period"))->
-    NumberValue();
+  double tper = 2 * M_PI * sqrt(Math.pow(aosk, 3) / MU_km_s);
 
   double t = params->
     Get(String::NewSymbol("currentTime"))->
