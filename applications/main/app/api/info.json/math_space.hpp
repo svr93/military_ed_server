@@ -12,19 +12,22 @@
 const double pi = M_PI;
 const double pi2 = M_PI * 2;
 
-const double fDegreeInRadian = 180.0 / M_PI;
-const double fDegreeInGrad = M_PI / 180;
+const double fDegreeInRadian = 180.0 / M_PI; // that means degrees in radian
+const double fDegreeInGrad = M_PI / 180; // that means radians in degree
 
-const double R_Earth = 6371.0;
-const int Rz = (int)(R_Earth * 1e3);
+const double R_Earth = 6371.0; // Earth radius, [km (SI: m)]
+const int Rz = (int)(R_Earth * 1e3); // Earth radius, [m]
 
 const int fSecondsInDay = 60 * 60 * 24;
 
-const double MU_km_s = 3.986e5; // standard gravitational parameter, [km3 / c2]
+const double MU_km_s = 3.986e5; // standard gravitational parameter,
+                                // [km3 / s2 (SI: m3 / s2)]
+
+const double V_ugl = pi2 / fSecondsInDay; // Earth angular velocity,
+                                          // [rad / s, SI]
 
 /* ----- not verified constants ----- */
 
-const double V_ugl = pi2 / fSecondsInDay;
 const double J_1957 = 2436204.5;
 
 const double Mu = MU_km_s * 1e9 * pow((double)fSecondsInDay, 2) /
