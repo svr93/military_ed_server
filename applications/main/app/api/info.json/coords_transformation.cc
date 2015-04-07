@@ -7,6 +7,7 @@
 using namespace v8;
 
 using std::cout;
+using std::endl;
 
 void calculateRC(double& r, double& az, double& eps,
                  double xc, double yc, double zc,
@@ -104,6 +105,17 @@ Handle<Value> calculateSatellitePos(const Arguments& args) {
 
   double D = 0;
   double S = 0;
+
+  cout << "CPP_DEBUG" << endl <<
+    "aosk: " << aosk << endl <<
+    "e: " << e << endl <<
+    "nakl: " << nakl << endl <<
+    "dby: " << dby << endl <<
+    "w: " << w << endl <<
+    "tper: " << tper << endl <<
+    "t: " << t << endl <<
+    "D: " << D << endl <<
+    "S: " << S << endl;
 
   PodsputnTochka(aosk, e, nakl, dby, w, tper, t, D, S);
 
