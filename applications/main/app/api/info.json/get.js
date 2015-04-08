@@ -16,7 +16,8 @@ module.exports = function(client, callback) {
     perigeeHeight: 410.2, // km
     inclination: 97.86907, // degrees
     ascendingNodeLongitude: 205.44564, // degrees
-    perigeeArg: 29.15896 // degrees
+    perigeeArg: 29.15896, // degrees
+    currentTime: currentTime // need exclude
   };
 
   testObject.eccentricity = mathLib.getEccentricity(testObject.perigeeHeight,
