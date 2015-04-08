@@ -97,7 +97,8 @@ Handle<Value> calculateSatellitePos(const Arguments& args) {
     Get(String::NewSymbol("perigeeArg"))->
     NumberValue();
 
-  double tper = 2 * M_PI * sqrt(pow(aosk, 3) / MU_km_s);
+  double tper = 2 * M_PI * sqrt(pow(aosk, 3) / MU_km_s) / fSecondsInDay;
+  // [twenty-four hours]
 
   double t = params->
     Get(String::NewSymbol("currentTime"))->
@@ -121,8 +122,8 @@ Handle<Value> calculateSatellitePos(const Arguments& args) {
 
   Local<Object> res = Object::New();
   
-  res->Set(String::NewSymbol("latitude"), Number::New(S));
-  res->Set(String::NewSymbol("longitude"), Number::New(D));
+  res->Set(String::NewSymbol("latitude"), Number::New(S * fDegreeInRadian));
+  res->Set(String::NewSymbol("longitude"), Number::New(D * fDegreeInRadian));
 
   return scope.Close(res);  
 }
