@@ -58,6 +58,10 @@ void get_ko_xyz_from_t(double t, // t: twenty-four hours
                        double omega_per, // omega_per: degrees
                        double tper, // tper: twenty-four hours
                        double& x, double& y, double& z); // x, y, z: km
+
+void get_Zxyz_from_xyz(double t, // t: twenty-four hours
+                       double x, double y, double z, // x, y, z: km
+                       double& x_z, double& y_z, double& z_z); // km
                          
 /* ----- not necessary methods ----- */
 
