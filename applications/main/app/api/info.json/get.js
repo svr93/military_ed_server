@@ -5,36 +5,39 @@ module.exports = function(client, callback) {
   
   var mathLibCPP = require(process.cwd() +
   '/applications/main/app/api/info.json/build/Release/addon');
-  
-  var objX = 6371; // Earth radius, km
-  var objY = 0;
-  var objZ = 0;
-  
-  var stLatitude = 0;
+
+  var currentTime = 89.5; // twenty-four hours
+
+  var stLatitude = 0; // degrees
   var stLongitude = 90; // degrees
-  
-  console.log(mathLibCPP.calculateStationCoords(objX, objY, objZ,
-                                            stLatitude, stLongitude));
 
-  var perigeeHeight = 410.2; // km
-  var apogeeHeight = 918.1;  // km
+  var testObject = {
+    apogeeHeight: 918.1, // km
+    perigeeHeight: 410.2, // km
+    inclination: 97.86907, // degrees
+    ascendingNodeLongitude: 205.44564, // degrees
+    perigeeArg: 29.15896 // degrees
+  };
 
-  var eccentricity = mathLib.getEccentricity(perigeeHeight, apogeeHeight);
-  var semiMajorAxis = mathLib.getSemiMajorAxis(perigeeHeight, eccentricity);
-//00
-  console.log(mathLibCPP.calculateRelativeCartesianCoords({
+  testObject.eccentricity = mathLib.getEccentricity(testObject.perigeeHeight,
+                                                    testObject.apogeeHeight);
 
-    currentTime: 89.5,
-    semiMajorAxis: semiMajorAxis,
-    eccentricity: eccentricity,
-    inclination: 97.86907,
-    ascendingNodeLongitude: 205.44564,
-    perigeeArg: 29.15896
+  testObject.semiMajorAxis = mathLib.getSemiMajorAxis(testObject.perigeeHeight,
+                                                      testObject.eccentricity);
 
-  }));
-//0  
+  var acc = mathLibCPP.calculateAbsoluteCartesianCoords(testObject);
+
+  var rcc =
+  mathLibCPP.translateAbsoluteCartesianToRelativeCartesian(currentTime,
+                                                           acc.x,
+                                                           acc.y,
+                                                           acc.z);
+
+  var res = mathLibCPP.calculateStationCoords(rcc.x, rcc.y, rcc.z,
+                                              stLatitude, stLongitude);
+
   client.context.data = {
-    result: 'OK'
+    res: res
   };
   
   callback();
