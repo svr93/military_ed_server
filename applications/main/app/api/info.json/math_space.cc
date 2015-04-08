@@ -394,7 +394,7 @@ SG = SG / 24 ;// [сутки] - vremya v sutkah
 return SG * 2 * pi ;// [rad]
 
 } SVR93 */
-double GMST(double t) { return t; } // SVR93
+double GMST(double t) { return V_ugl * t * fSecondsInDay; } // SVR93
 
 //------------------------------------------------------------
 /// пересчет долготы L , широты B  и высоты h в HСК (xg, yg, zg)
