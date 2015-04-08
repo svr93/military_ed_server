@@ -8,7 +8,7 @@ module.exports = function(client, callback) {
 
   console.log(client.query);
   
-  var objX = 6371;
+  var objX = 6371; // Earth radius
   var objY = 0;
   var objZ = 0;
   
@@ -18,8 +18,8 @@ module.exports = function(client, callback) {
   console.log(addon.calculateRelativeCoords(objX, objY, objZ,
                                             stLatitude, stLongitude));
 
-  var apogeeHeight = 918.1;
   var perigeeHeight = 410.2;
+  var apogeeHeight = 918.1;
 
   var eccentricity = mathLib.getEccentricity(perigeeHeight, apogeeHeight);
   var semiMajorAxis = mathLib.getSemiMajorAxis(perigeeHeight, eccentricity);
