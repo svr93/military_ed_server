@@ -51,6 +51,13 @@ void PodsputnTochka(double& aosk, double& e, // aosk: km
                     double& w, // w: radians
                     double& tper, double& t, // tper, t: twenty-four hours
                     double& D, double& S); // D, S: radians
+
+void get_ko_xyz_from_t(double t, // t: twenty-four hours
+                       double a, double e, // a: km
+                       double naklon, double DBY, // naklon, DBY: degrees
+                       double omega_per, // omega_per: degrees
+                       double tper, // tper: twenty-four hours
+                       double& x, double& y, double& z); // x, y, z: km
                          
 /* ----- not necessary methods ----- */
 
