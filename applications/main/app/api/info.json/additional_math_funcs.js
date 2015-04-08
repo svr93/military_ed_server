@@ -27,15 +27,19 @@ exports.translateCartesianToGeographic = function(x, y, z) {
   var polar_angle = Math.atan(Math.sqrt(x * x + y * y) / z);
   var azimuthal_angle = Math.atan(y / x);
 
+  if (isNaN(azimuthal_angle)) {
+    azimuthal_angle = 0;
+  }
+
   var latitudeRad = Math.abs(Math.PI - polar_angle) - Math.PI / 2;
 
   var longitudeRad = (azimuthal_angle < 2 * Math.PI) ?
                   azimuthal_angle : azimuthal_angle - 2 * Math.PI;
 
   return {
-    latitude: latitudeRad * 180 / Math.PI;
-    longitude: longitudeRad * 180 / Math.PI;
-    height: radial_distance - EARTH_RADIUS;
+    latitude: latitudeRad * 180 / Math.PI,
+    longitude: longitudeRad * 180 / Math.PI,
+    height: radial_distance - EARTH_RADIUS,
   };
-  
+
 };
