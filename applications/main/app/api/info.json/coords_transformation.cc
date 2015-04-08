@@ -22,7 +22,7 @@ void calculateRC(double& r, double& az, double& eps,
   get_RAzEps_from_xyz(r, az, eps, xc, yc, zc, x0, y0, z0, 0, 0, s0, d0);
 }
 
-Handle<Value> calculateRelativeCoords(const Arguments& args) {
+Handle<Value> calculateStationCoords(const Arguments& args) {
   HandleScope scope;
 
   if (args.Length() < 5) {
@@ -128,14 +128,84 @@ Handle<Value> calculateSatellitePos(const Arguments& args) {
   return scope.Close(res);  
 }
 
+Handle<Value> calculateRelativeCartesianCoords(const Arguments& args) {
+  HandleScope scope;
+
+  if (args.Length() < 1) {
+    ThrowException(Exception::TypeError(String::New("Wrong number of args")));
+    return scope.Close(Undefined());
+  }
+
+  if (!args[0]->IsObject()) {
+    ThrowException(Exception::TypeError(String::New("Wrong args")));
+    return scope.Close(Undefined());
+  }
+
+  Local<Object> params = args[0]->ToObject();
+
+  double t = params->
+    Get(String::NewSymbol("currentTime"))->
+    NumberValue(); // t: twenty-four hours
+
+  double a = params->
+    Get(String::NewSymbol("semiMajorAxis"))->
+    NumberValue(); // a: km
+
+  double e = params->
+    Get(String::NewSymbol("eccentricity"))->
+    NumberValue();
+
+  double naklon = params->
+    Get(String::NewSymbol("inclination"))->
+    NumberValue(); // naklon: degrees
+
+  double DBY = params->
+    Get(String::NewSymbol("ascendingNodeLongitude"))->
+    NumberValue(); // DBY: degrees
+
+  double omega_per = params->
+    Get(String::NewSymbol("perigeeArg"))->
+    NumberValue(); // omega_per: degrees
+
+  double tper = 2 * M_PI * sqrt(pow(a, 3) / MU_km_s) / fSecondsInDay;
+  // tper: twenty-four hours
+
+  double x = 0;
+  double y = 0;
+  double z = 0;
+
+  cout << "CPP_DEBUG" << endl <<
+    "t: " << t << endl <<
+    "a: " << a << endl <<
+    "e: " << e << endl <<
+    "naklon: " << naklon << endl <<
+    "DBY: " << DBY << endl <<
+    "omega_per: " << omega_per << endl <<
+    "tper: " << tper << endl;
+
+  get_ko_xyz_from_t(t, a, e, naklon, DBY, omega_per, tper, x, y, z);
+
+  Local<Object> res = Object::New();
+  
+  res->Set(String::NewSymbol("x"), Number::New(x));
+  res->Set(String::NewSymbol("y"), Number::New(y));
+  res->Set(String::NewSymbol("z"), Number::New(z));
+
+  return scope.Close(res);  
+}
+
 void Init(Handle<Object> exports) {
 
-  exports->Set(String::NewSymbol("calculateRelativeCoords"),
-               FunctionTemplate::New(calculateRelativeCoords)->
+  exports->Set(String::NewSymbol("calculateStationCoords"),
+               FunctionTemplate::New(calculateStationCoords)->
                  GetFunction());
 
   exports->Set(String::NewSymbol("calculateSatellitePos"),
                FunctionTemplate::New(calculateSatellitePos)->
+                 GetFunction());
+
+  exports->Set(String::NewSymbol("calculateRelativeCartesianCoords"),
+               FunctionTemplate::New(calculateRelativeCartesianCoords)->
                  GetFunction());
 }
 
