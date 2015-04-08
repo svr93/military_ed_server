@@ -128,7 +128,7 @@ Handle<Value> calculateSatellitePos(const Arguments& args) {
   return scope.Close(res);  
 }
 
-Handle<Value> calculateRelativeCartesianCoords(const Arguments& args) {
+Handle<Value> calculateAbsoluteCartesianCoords(const Arguments& args) {
   HandleScope scope;
 
   if (args.Length() < 1) {
@@ -194,6 +194,46 @@ Handle<Value> calculateRelativeCartesianCoords(const Arguments& args) {
   return scope.Close(res);  
 }
 
+Handle<Value> translateAbsoluteCartesianToRelativeCartesian(
+  const Arguments& args) {
+
+  HandleScope scope;
+
+  if (args.Length() < 4) {
+    ThrowException(Exception::TypeError(String::New("Wrong number of args")));
+    return scope.Close(Undefined());
+  }
+
+  if (!args[0]->IsNumber() ||
+      !args[1]->IsNumber() ||
+      !args[2]->IsNumber() ||
+      !args[3]->IsNumber()) {
+
+    ThrowException(Exception::TypeError(String::New("Wrong args")));
+    return scope.Close(Undefined());
+  }
+
+  double t = args[0]->NumberValue(); // t: twenty-four hours
+
+  double x = args[1]->NumberValue(); // km
+  double y = args[2]->NumberValue(); // km
+  double z = args[3]->NumberValue(); // km
+
+  double x_z = 0;
+  double y_z = 0;
+  double z_z = 0;
+
+  get_Zxyz_from_xyz(t, x, y, z, x_z, y_z, z_z); // return: km
+
+  Local<Object> res = Object::New();
+  
+  res->Set(String::NewSymbol("x"), Number::New(x_z));
+  res->Set(String::NewSymbol("y"), Number::New(y_z));
+  res->Set(String::NewSymbol("z"), Number::New(z_z));
+
+  return scope.Close(res);  
+}
+
 void Init(Handle<Object> exports) {
 
   exports->Set(String::NewSymbol("calculateStationCoords"),
@@ -204,9 +244,14 @@ void Init(Handle<Object> exports) {
                FunctionTemplate::New(calculateSatellitePos)->
                  GetFunction());
 
-  exports->Set(String::NewSymbol("calculateRelativeCartesianCoords"),
-               FunctionTemplate::New(calculateRelativeCartesianCoords)->
+  exports->Set(String::NewSymbol("calculateAbsoluteCartesianCoords"),
+               FunctionTemplate::New(calculateAbsoluteCartesianCoords)->
                  GetFunction());
+
+  exports->
+    Set(String::NewSymbol("translateAbsoluteCartesianToRelativeCartesian"),
+        FunctionTemplate::New(translateAbsoluteCartesianToRelativeCartesian)->
+          GetFunction());
 }
 
 NODE_MODULE(addon, Init)
