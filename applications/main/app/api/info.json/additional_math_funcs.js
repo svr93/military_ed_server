@@ -20,7 +20,7 @@ exports.getSemiMajorAxis = function(perigeeHeight, eccentricity) {
   return (EARTH_RADIUS + perigeeHeight) / (1 - eccentricity);
 };
 
-exports.translateCartesianToGeographic = function(x, y, z) {
+exports.translateRelativeCartesianToGeographic = function(x, y, z) {
   // x, y, z: km, return: degrees, km
 
   var radial_distance = Math.sqrt(x * x + y * y + z * z);
