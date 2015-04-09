@@ -16,6 +16,7 @@
     "url": "https://github.com/svr93/military_ed_server/issues"
   },
   "dependencies": {
-    "impress": "~0.1.244"
+    "impress": "~0.1.244",
+    "pg": "^4.3.0"
   }
 }

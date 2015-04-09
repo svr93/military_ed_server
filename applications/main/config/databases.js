@@ -2,12 +2,12 @@
 
 module.exports = {
 
-  dbAlias: {
+  /* dbAlias: {
     url: 'mongodb://localhost:27017/impress',
     collections: [ 'sessions', 'users', 'groups', 'testCollection' ],
     slowTime: '2s',
     security: true,
-  },
+  }, */
 
   // MySQL example database configuration
   //
@@ -18,10 +18,9 @@ module.exports = {
 
   // PgSQL example database configuration
   //
-  //  pgsqlConnection: {
-  //    url: 'postgres://impress:password@localhost/test', // connection string (required)
-  //    slowTime: 1000,                                    // time to log query as slow (optional, default: '2s', in milliseconds or string like '5s')
-  //  },
+  pgsqlConnection: {
+    url: 'postgres://mil_svr93:39rvs_lim@localhost:5432/mil_svr93'
+  }
 
   // MongoDB example database configuration
   //
