@@ -9,19 +9,6 @@ using namespace v8;
 using std::cout;
 using std::endl;
 
-void calculateRC(double& r, double& az, double& eps,
-                 double xc, double yc, double zc,
-                 double s0, double d0) {
-  
-  double x0 = 0;
-  double y0 = 0;
-  double z0 = 0;
-  
-  get_xyzR_from_sd_grad(s0, d0, 0, x0, y0, z0);
-  
-  get_RAzEps_from_xyz(r, az, eps, xc, yc, zc, x0, y0, z0, 0, 0, s0, d0);
-}
-
 Handle<Value> calculateStationCoords(const Arguments& args) {
   HandleScope scope;
 
@@ -51,7 +38,8 @@ Handle<Value> calculateStationCoords(const Arguments& args) {
   double s0 = args[3]->NumberValue(); // stLatitude
   double d0 = args[4]->NumberValue(); // stLongitude
   
-  calculateRC(r, az, eps, xc, yc, zc, s0, d0);
+  get_RAzEps_from_xyz(r, az, eps, xc, yc, zc, s0, d0); // s0, d0: degrees
+
 
   Local<Object> res = Object::New();
   

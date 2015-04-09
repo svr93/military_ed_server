@@ -181,10 +181,10 @@ void get_xyzR_from_sd_grad(double s,double d,double h,double& x,double& y,double
     z = R_Earth * sin(s*fDegreeInGrad);
 }
 //-------получение  координат (r,az,eps) простр-й точки(xс,yс,zс) относительно другой (x0,y0,z0)
-void get_RAzEps_from_xyz(double& r,double& az,double& eps,double xc,double yc,double zc,double x0,double y0,double z0,double sc, double dc,double s0, double d0)
+void get_RAzEps_from_xyz(double& r, double& az, double& eps, double xc, double yc, double zc, double s0, double d0) // SVR93
 {
    double xm,ym,zm;
-
+   double x0, y0, z0; // SVR93
    get_xyzR_from_sd_grad(s0,d0,0.0,x0,y0,z0);
 			
 
