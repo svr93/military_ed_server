@@ -1,4 +1,5 @@
 module.exports = function(client, callback) {
+  console.log(client.query);
 
   pgsqlConnection.connection.query( // only for test
     'SELECT * FROM satellites', function(err, result) {
@@ -18,8 +19,17 @@ module.exports = function(client, callback) {
 
   var currentTime = 89.5; // twenty-four hours
 
-  var stLatitude = 0; // degrees
-  var stLongitude = 90; // degrees
+  if (!('latitude' in client.query) || !('longitude' in client.query)) {
+    client.context.data = {
+      err: 'Ошибка запроса'
+    };
+  
+    callback();
+    return;
+  }
+
+  var stLatitude = +client.query.latitude; // degrees
+  var stLongitude = +client.query.longitude; // degrees
 
   var testObject = {
     apogeeHeight: 918.1, // km
