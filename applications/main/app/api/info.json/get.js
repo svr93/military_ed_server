@@ -1,5 +1,15 @@
 module.exports = function(client, callback) {
 
+  pgsqlConnection.connection.query( // only for test
+    'SELECT * FROM satellites', function(err, result) {
+
+    if (err) {
+      return console.error('error running query', err);
+    }
+
+    console.log(result.rows);
+  });
+
   var mathLib = require(process.cwd() +
   '/applications/main/app/api/info.json/additional_math_funcs.js');
   
