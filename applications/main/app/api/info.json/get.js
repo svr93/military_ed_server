@@ -1,65 +1,81 @@
 module.exports = function(client, callback) {
-  console.log(client.query);
+  /* to do:
+    1) to exclude the loop (need transfer (in single func) a whole array
+       instead of elem);
+  */
 
-  pgsqlConnection.connection.query( // only for test
-    'SELECT * FROM satellites', function(err, result) {
+  'use strict';
 
-    if (err) {
-      return console.error('error running query', err);
-    }
-
-    console.log(result.rows);
-  });
-
-  var mathLib = require(process.cwd() +
-  '/applications/main/app/api/info.json/additional_math_funcs.js');
-  
+  var mathLibJS = require(process.cwd() +
+    '/applications/main/app/api/info.json/additional_math_funcs.js');
+    
   var mathLibCPP = require(process.cwd() +
-  '/applications/main/app/api/info.json/build/Release/addon');
-
-  var currentTime = 89.5; // twenty-four hours
+    '/applications/main/app/api/info.json/build/Release/addon');
 
   if (!('latitude' in client.query) || !('longitude' in client.query)) {
     client.context.data = {
       err: 'Ошибка запроса'
     };
-  
+    
     callback();
     return;
   }
 
-  var stLatitude = +client.query.latitude; // degrees
-  var stLongitude = +client.query.longitude; // degrees
+  // uptime() - seconds
+  // 1 real second = 100 model seconds
 
-  var testObject = {
-    apogeeHeight: 918.1, // km
-    perigeeHeight: 410.2, // km
-    inclination: 97.86907, // degrees
-    ascendingNodeLongitude: 205.44564, // degrees
-    perigeeArg: 29.15896, // degrees
-    currentTime: currentTime // need exclude
-  };
+  var currentTime = impress.sandbox.process.uptime() * 100 / (60 * 60 * 24);
+  // currentTime: twenty-four hours
 
-  testObject.eccentricity = mathLib.getEccentricity(testObject.perigeeHeight,
-                                                    testObject.apogeeHeight);
+  pgsqlConnection.connection.query(
+    'SELECT * FROM cstl', function(err, result) {
 
-  testObject.semiMajorAxis = mathLib.getSemiMajorAxis(testObject.perigeeHeight,
-                                                      testObject.eccentricity);
+    if (err) {
+      return console.error('error running query', err);
+    }
 
-  var acc = mathLibCPP.calculateAbsoluteCartesianCoords(testObject);
+    var station = {
+      latitude: +client.query.latitude, // degrees
+      longitude: +client.query.longitude // degrees
+    };
 
-  var rcc =
-  mathLibCPP.translateAbsoluteCartesianToRelativeCartesian(currentTime,
-                                                           acc.x,
-                                                           acc.y,
-                                                           acc.z);
+    var objArray = [];
+    var dbObjects = result.rows;
 
-  var res = mathLibCPP.calculateStationCoords(rcc.x, rcc.y, rcc.z,
-                                              stLatitude, stLongitude);
+    for (var i = 0; i < dbObjects.length; ++i) {
 
-  client.context.data = {
-    res: res
-  };
-  
-  callback();
+      objArray.push({
+        stlapogeeh: +dbObjects[i].stlapogeeh, // km
+        stlperigeeh: +dbObjects[i].stlperigeeh, // km
+        stlincl: +dbObjects[i].stlincl, // degrees
+        stlascendingnodelng: +dbObjects[i].stlascendingnodelng, // degrees
+        stlperigeearg: +dbObjects[i].stlperigeearg, // degrees
+      });
+    }
+
+    var response = [];
+
+    for (var i = 0; i < objArray.length; ++i) {
+
+      objArray[i].stleccentricity = mathLibJS.getEccentricity(
+        objArray[i].stlperigeeh, objArray[i].stlapogeeh);
+
+      objArray[i].stlsemimajoraxis = mathLibJS.getSemiMajorAxis(
+        objArray[i].stlperigeeh, objArray[i].stleccentricity); // return: km
+
+      var acc = mathLibCPP.calculateAbsCartesianCoords(
+        objArray[i], currentTime);
+
+      var rcc = mathLibCPP.translateAbsCartesianToRelCartesian(
+        acc, currentTime);
+
+      var result = mathLibCPP.calculateStationCoords(rcc, station);
+
+      response.push(result);
+    }
+
+    client.context.data = response;
+    callback();
+    
+  });
 };
