@@ -21,23 +21,27 @@ Handle<Value> calculateStationCoords(const Arguments& args) {
   double az = 0; // degrees
   double eps = 0; // degrees
 
-  double xc = args[0]->
+  Local<Object> stl = args[0]->ToObject();
+
+  double xc = stl->
     Get(String::NewSymbol("x"))->
     NumberValue(); // km
 
-  double yc = args[0]->
+  double yc = stl->
     Get(String::NewSymbol("y"))->
     NumberValue(); // km
 
-  double zc = args[0]->
+  double zc = stl->
     Get(String::NewSymbol("z"))->
     NumberValue(); // km
 
-  double s0 = args[1]->
+  Local<Object> station = args[1]->ToObject();
+
+  double s0 = station->
     Get(String::NewSymbol("latitude"))->
     NumberValue(); // degrees
 
-  double d0 = args[1]->
+  double d0 = station->
     Get(String::NewSymbol("longitude"))->
     NumberValue(); // degrees
 

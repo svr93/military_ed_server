@@ -19,15 +19,17 @@ Handle<Value> translateAbsCartesianToRelCartesian(const Arguments& args) {
 
   double t = args[1]->NumberValue(); // t: twenty-four hours
 
-  double x = args[0]->
+  Local<Object> stl = args[0]->ToObject();
+
+  double x = stl->
     Get(String::NewSymbol("x"))->
     NumberValue(); // km
 
-  double y = args[0]->
+  double y = stl->
     Get(String::NewSymbol("y"))->
     NumberValue(); // km
 
-  double z = args[0]->
+  double z = stl->
     Get(String::NewSymbol("z"))->
     NumberValue(); // km
 

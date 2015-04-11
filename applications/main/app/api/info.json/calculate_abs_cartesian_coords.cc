@@ -19,23 +19,25 @@ Handle<Value> calculateAbsCartesianCoords(const Arguments& args) {
 
   double t = args[1]->NumberValue(); // t: twenty-four hours
 
-  double a = args[0]->
+  Local<Object> stl = args[0]->ToObject();
+
+  double a = stl->
     Get(String::NewSymbol("stlsemimajoraxis"))->
     NumberValue(); // a: km
 
-  double e = args[0]->
+  double e = stl->
     Get(String::NewSymbol("stleccentricity"))->
     NumberValue();
 
-  double naklon = args[0]->
+  double naklon = stl->
     Get(String::NewSymbol("stlincl"))->
     NumberValue(); // naklon: degrees
 
-  double DBY = args[0]->
+  double DBY = stl->
     Get(String::NewSymbol("stlascendingnodelng"))->
     NumberValue(); // DBY: degrees
 
-  double omega_per = params->
+  double omega_per = stl->
     Get(String::NewSymbol("stlperigeearg"))->
     NumberValue(); // omega_per: degrees
 
