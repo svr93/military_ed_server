@@ -28,7 +28,7 @@ module.exports = function(client, callback) {
   // currentTime: twenty-four hours
 
   pgsqlConnection.connection.query(
-    'SELECT * FROM cstl', function(err, result) {
+    'SELECT * FROM cstl', function(err, queryResult) {
 
     if (err) {
       return console.error('error running query', err);
@@ -39,7 +39,7 @@ module.exports = function(client, callback) {
       longitude: +client.query.longitude // degrees
     };
 
-    var objArray = result.rows;
+    var objArray = queryResult.rows;
 
     var response = [];
 
