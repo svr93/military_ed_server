@@ -8,6 +8,9 @@ exports.getEccentricity = function(perigeeHeight, apogeeHeight) {
   // see https://ru.wikipedia.org/wiki/Апоцентр_и_перицентр
   // perigeeRadius = perigeeHeight + EARTH_RADIUS
 
+  perigeeHeight = +perigeeHeight;
+  apogeeHeight = +apogeeHeight;
+
   var eccentricity = (apogeeHeight - perigeeHeight) /
                      (2 * EARTH_RADIUS + apogeeHeight + perigeeHeight);
 
@@ -17,11 +20,18 @@ exports.getEccentricity = function(perigeeHeight, apogeeHeight) {
 exports.getSemiMajorAxis = function(perigeeHeight, eccentricity) {
   // perigeeHeight: km, return: km
 
+  perigeeHeight = +perigeeHeight;
+  eccentricity = +eccentricity;
+
   return (EARTH_RADIUS + perigeeHeight) / (1 - eccentricity);
 };
 
 exports.translateRelativeCartesianToGeographic = function(x, y, z) {
   // x, y, z: km, return: degrees, km
+
+  x = +x;
+  y = +y;
+  z = +z;
 
   var radial_distance = Math.sqrt(x * x + y * y + z * z);
   var polar_angle = Math.atan(Math.sqrt(x * x + y * y) / z);
@@ -39,7 +49,7 @@ exports.translateRelativeCartesianToGeographic = function(x, y, z) {
   return {
     latitude: latitudeRad * 180 / Math.PI,
     longitude: longitudeRad * 180 / Math.PI,
-    height: radial_distance - EARTH_RADIUS,
+    height: radial_distance - EARTH_RADIUS
   };
 
 };

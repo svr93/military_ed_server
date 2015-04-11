@@ -39,19 +39,7 @@ module.exports = function(client, callback) {
       longitude: +client.query.longitude // degrees
     };
 
-    var objArray = [];
-    var dbObjects = result.rows;
-
-    for (var i = 0; i < dbObjects.length; ++i) {
-
-      objArray.push({
-        stlapogeeh: +dbObjects[i].stlapogeeh, // km
-        stlperigeeh: +dbObjects[i].stlperigeeh, // km
-        stlincl: +dbObjects[i].stlincl, // degrees
-        stlascendingnodelng: +dbObjects[i].stlascendingnodelng, // degrees
-        stlperigeearg: +dbObjects[i].stlperigeearg, // degrees
-      });
-    }
+    var objArray = result.rows;
 
     var response = [];
 
