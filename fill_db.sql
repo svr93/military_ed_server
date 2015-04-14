@@ -19,7 +19,28 @@ CREATE TABLE cstl ( /* satellites catalog */
   stlperigeearg NUMERIC(8, 5) /* arg - argument */
 );
 
+CREATE TABLE cinfotools ( /* information tools catalog */
+  infotoolsltd NUMERIC(5, 2), /* ltd - latitude */
+  infotoolslng NUMERIC(5, 2), /* lng - longitude */
+  
+  infotoolsmindist NUMERIC(5, 1), /* min distance */
+  infotoolsmaxdist NUMERIC(6, 1), /* max distance */
+  
+  infotoolsminelangle NUMERIC(4, 2), /* min elevation angle */
+  infotoolsmaxelangle NUMERIC(4, 2), /* max elevation angle */
+  
+  UNIQUE(infotoolsltd, infotoolslng)
+);
+
 GRANT ALL PRIVILEGES ON cstl TO mil_svr93; /* necessary! */
+GRANT ALL PRIVILEGES ON cinfotools TO mil_svr93; /* necessary! */
+
+INSERT INTO cinfotools VALUES
+  (60, 70, 100.2, 10000.7, 16, 81.4);
+INSERT INTO cinfotools VALUES
+  (45, 67, 456.1, 4500.2, 34, 78.1);
+INSERT INTO cinfotools VALUES
+  (67, 71, 849.4, 5034.7, 23, 56.2);
 
 INSERT INTO cstl VALUES
   (DEFAULT, 918.1, 410.2, 97.86907, 205.44564, 29.15896);
