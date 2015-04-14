@@ -38,6 +38,8 @@ module.exports = function(client, callback) {
       latitude: +client.query.latitude, // degrees
       longitude: +client.query.longitude // degrees
     };
+    
+    console.log(station);
 
     var objArray = queryResult.rows;
 
@@ -58,12 +60,44 @@ module.exports = function(client, callback) {
         acc, currentTime);
 
       var result = mathLibCPP.calculateStationCoords(rcc, station);
+      result.stlid = objArray[i].stlid;
 
       response.push(result);
     }
 
-    client.context.data = response;
-    callback();
+    checkReachability(response);
     
   });
+  
+  function checkReachability(response) {
+    
+    pgsqlConnection.connection.query(
+      'SELECT * FROM cinfotools WHERE \
+      infotoolsltd=$1 AND infotoolslng=$2',
+      [client.query.latitude, client.query.longitude],
+      function(err, queryResult) {
+
+      if (err) {
+        return console.error('error running query', err);
+      }
+      
+      var restrictions = queryResult.rows[0];
+      
+      client.context.data = {
+        time: currentTime,
+        coords: response.filter(function(elem) {
+        
+          return (elem.radial_distance >=
+                  (+restrictions.infotoolsmindist) &&
+                  
+                  elem.radial_distance <=
+                  (+restrictions.infotoolsmaxdist));
+                  
+        })
+      };
+      
+      callback();
+    });
+  }
+  
 };
