@@ -42,8 +42,11 @@ GRANT ALL PRIVILEGES ON cstl TO mil_svr93; /* necessary! */
 GRANT ALL PRIVILEGES ON cinfotools TO mil_svr93; /* necessary! */
 
 INSERT INTO cinfotools VALUES
-/* station in Armavir - data from militaryrussia.ru */
+/* station in Armavir - militaryrussia.ru/blog/topic-610.html */
   (44.93, 40.98, 100.0, 4200.0, 150.0, 4000.0, 165, 295, 2, 60);
+INSERT INTO cinfotools VALUES
+/* station in Lekhtusi - militaryrussia.ru/blog/topic-610.html */
+  (60.28, 30.55, 100.0, 4200.0, 150.0, 4000.0, 245, 355, 2, 70);
 
 INSERT INTO cstl VALUES
   (DEFAULT, 918.1, 410.2, 97.86907, 205.44564, 29.15896);
