@@ -61,6 +61,9 @@ module.exports = function(client, callback) {
 
       var result = mathLibCPP.calculateStationCoords(rcc, station);
       result.stlid = objArray[i].stlid;
+      
+      result.projection = mathLibCPP.getSatProjection(objArray[i],
+                                                      currentTime);
 
       response.push(result);
     }
