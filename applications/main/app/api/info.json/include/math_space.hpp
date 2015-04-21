@@ -47,6 +47,12 @@ void get_RAzEps_from_xyz(double& r, // r: km,
                          double& az, double& eps, // az, eps: degrees                       
                          double xc, double yc, double zc, // xc, yc, zc: km
                          double s0, double d0); // s0, d0: degrees
+                         
+void PodsputnTochka(double& aosk, double& e, // aosk: km
+                    double& nakl, double& dby, // nakl, dby: radians
+                    double& w, // w: radians
+                    double& tper, double& t, // tper, t: twenty-four hours
+                    double& D, double& S); // D, S: radians
                         
 /* ----- not necessary methods ----- */
 
