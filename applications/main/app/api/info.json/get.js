@@ -87,11 +87,33 @@ module.exports = function(client, callback) {
         time: currentTime,
         coords: response.filter(function(elem) {
         
-          return (elem.radial_distance >=
-                  (+restrictions.infotoolsmindist) &&
+          return (elem.radial_distance *
+                  Math.cos(elem.elevation_angle * Math.PI / 180) >
+                  (+restrictions.infotoolsminhdist) &&
                   
-                  elem.radial_distance <=
-                  (+restrictions.infotoolsmaxdist));
+                  elem.radial_distance *
+                  Math.cos(elem.elevation_angle * Math.PI / 180) <
+                  (+restrictions.infotoolsmaxhdist) &&
+                  
+                  elem.radial_distance *
+                  Math.sin(elem.elevation_angle * Math.PI / 180) >
+                  (+restrictions.infotoolsminvdist) &&
+                  
+                  elem.radial_distance *
+                  Math.sin(elem.elevation_angle * Math.PI / 180) <
+                  (+restrictions.infotoolsmaxvdist) &&
+                  
+                  elem.azimuth_angle >
+                  (+restrictions.infotoolsminazangle) &&
+                  
+                  elem.azimuth_angle <
+                  (+restrictions.infotoolsmaxazangle) &&
+                  
+                  elem.elevation_angle >
+                  (+restrictions.infotoolsminelangle) &&
+                  
+                  elem.elevation_angle <
+                  (+restrictions.infotoolsmaxelangle));
                   
         })
       };
