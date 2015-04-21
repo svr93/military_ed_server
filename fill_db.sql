@@ -12,11 +12,11 @@ CREATE DATABASE mil_svr93 OWNER mil_svr93;
 CREATE TABLE cstl ( /* satellites catalog */
   stlid SMALLSERIAL,
   /* numeric for exact calculations */
-  stlapogeeh NUMERIC(5, 1), /* h - height */
-  stlperigeeh NUMERIC(5, 1), /* h - height */
-  stlincl NUMERIC(7, 5), /* incl - inclination */
-  stlascendingnodelng NUMERIC(8, 5), /* lng - longitude */
-  stlperigeearg NUMERIC(8, 5) /* arg - argument */
+  stlapogeeh NUMERIC(5, 1), /* h - height, km */
+  stlperigeeh NUMERIC(5, 1), /* h - height, km */
+  stlincl NUMERIC(7, 5), /* incl - inclination, degrees */
+  stlascendingnodelng NUMERIC(8, 5), /* lng - longitude, degrees */
+  stlperigeearg NUMERIC(8, 5) /* arg - argument, degrees */
 );
 
 CREATE TABLE cinfotools ( /* information tools catalog */
