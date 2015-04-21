@@ -5,6 +5,7 @@
 #include "include/calculate_abs_cartesian_coords.hpp"
 #include "include/translate_abs_cartesian_to_rel_cartesian.hpp"
 #include "include/calculate_station_coords.hpp"
+#include "include/get_sat_projection.hpp"
 
 using namespace v8;
 
@@ -20,6 +21,10 @@ void Init(Handle<Object> exports) {
 
   exports->Set(String::NewSymbol("calculateStationCoords"),
                FunctionTemplate::New(calculateStationCoords)->
+                 GetFunction());
+                 
+  exports->Set(String::NewSymbol("getSatProjection"),
+               FunctionTemplate::New(getSatProjection)->
                  GetFunction());
 }
 

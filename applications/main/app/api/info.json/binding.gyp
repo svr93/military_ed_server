@@ -8,6 +8,7 @@
         "calculate_abs_cartesian_coords.cc",
         "translate_abs_cartesian_to_rel_cartesian.cc",
         "calculate_station_coords.cc",
+        "get_sat_projection.cc",
         
         "coords_transformation.cc"
       ]
