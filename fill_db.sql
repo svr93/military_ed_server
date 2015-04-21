@@ -23,8 +23,14 @@ CREATE TABLE cinfotools ( /* information tools catalog */
   infotoolsltd NUMERIC(5, 2), /* ltd - latitude */
   infotoolslng NUMERIC(5, 2), /* lng - longitude */
   
-  infotoolsmindist NUMERIC(5, 1), /* min distance */
-  infotoolsmaxdist NUMERIC(6, 1), /* max distance */
+  infotoolsminhdist NUMERIC(4, 1), /* min horisontal distance */
+  infotoolsmaxhdist NUMERIC(5, 1), /* max horisontal distance */
+  
+  infotoolsminvdist NUMERIC(4, 1), /* min vertical distance */
+  infotoolsmaxvdist NUMERIC(5, 1), /* max vertical distance */
+  
+  infotoolsminazangle NUMERIC(5, 2), /* min azimuthal angle */
+  infotoolsmaxazangle NUMERIC(5, 2), /* max azimuthal angle */
   
   infotoolsminelangle NUMERIC(4, 2), /* min elevation angle */
   infotoolsmaxelangle NUMERIC(4, 2), /* max elevation angle */
@@ -36,11 +42,8 @@ GRANT ALL PRIVILEGES ON cstl TO mil_svr93; /* necessary! */
 GRANT ALL PRIVILEGES ON cinfotools TO mil_svr93; /* necessary! */
 
 INSERT INTO cinfotools VALUES
-  (60, 70, 100.2, 10000.7, 16, 81.4);
-INSERT INTO cinfotools VALUES
-  (45, 67, 456.1, 4500.2, 34, 78.1);
-INSERT INTO cinfotools VALUES
-  (67, 71, 849.4, 5034.7, 23, 56.2);
+/* station in Armavir - data from militaryrussia.ru */
+  (44.93, 40.98, 100.0, 4200.0, 150.0, 4000.0, 165, 295, 2, 60);
 
 INSERT INTO cstl VALUES
   (DEFAULT, 918.1, 410.2, 97.86907, 205.44564, 29.15896);
