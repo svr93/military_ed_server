@@ -48,6 +48,10 @@ Handle<Value> getSatProjection(const Arguments& args) {
   double S = 0; // radians
   
   PodsputnTochka(aosk, e, nakl, dby, w, tper, t, D, S);
+  
+  if (D > M_PI) {
+    D -= 2 * M_PI;
+  }
 
   Local<Object> res = Object::New();
   
