@@ -17,7 +17,7 @@ Handle<Value> getSatProjection(const Arguments& args) {
     return scope.Close(Undefined());
   }
 
-  double t = args[1]->NumberValue(); // t: twenty-four hours
+  double t = (args[1]->NumberValue()) * fSecondsInDay; // t: seconds
 
   Local<Object> stl = args[0]->ToObject();
 
