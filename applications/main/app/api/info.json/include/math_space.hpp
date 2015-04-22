@@ -51,7 +51,7 @@ void get_RAzEps_from_xyz(double& r, // r: km,
 void PodsputnTochka(double& aosk, double& e, // aosk: km
                     double& nakl, double& dby, // nakl, dby: radians
                     double& w, // w: radians
-                    double& tper, double& t, // tper, t: twenty-four hours
+                    double& tper, double& t, // tper: twenty-four hours, t: sec
                     double& D, double& S); // D, S: radians
                         
 /* ----- not necessary methods ----- */
